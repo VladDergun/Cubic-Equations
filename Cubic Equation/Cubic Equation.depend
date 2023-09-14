@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1694721428 source:c:\users\vladyslav\onedrive\Робочий стіл\c\cubic equation\main.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<complex.h>
+
