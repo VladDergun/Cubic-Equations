@@ -56,6 +56,7 @@ int main()
         printf("\n x1: %f", x1);
         printf("\n x2: %f + %fi", creal(x2), cimag(x2));
         printf("\n x3: %f + %fi", creal(x3), cimag(x3));
+        getch();
 
 
     }
@@ -72,6 +73,7 @@ int main()
         printf("\n x1: %f", x1);
         printf("\n x2: %f", x2);
         printf("\n x3: %f", x2);
+        getch();
 
 
     }
@@ -93,6 +95,7 @@ int main()
         printf("\n x1: %f", x1);
         printf("\n x2: %f", x2);
         printf("\n x3: %f", x3);
+        getch();
     }
 
 
