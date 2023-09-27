@@ -15,17 +15,17 @@ int main()
     printf("Enter a: ");
     fgets(a_n, 38, stdin);
     a = atof(a_n);
-    fflush(stdin);
+   
 
     printf("Enter b: ");
     fgets(b_n, 38, stdin);
     b = atof(b_n);
-    fflush(stdin);
+   
 
     printf("Enter c: ");
     fgets(c_n, 38, stdin);
     c = atof(c_n);
-    fflush(stdin);
+    
 
     p = b - (a*a)/3;
 
