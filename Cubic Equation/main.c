@@ -25,6 +25,12 @@ int main()
     printf("Enter c: ");
     fgets(c_n, 38, stdin);
     c = atof(c_n);
+    if (a == 0 && b == 0 && c == 0){
+        printf("x = 0");
+        getch();
+        exit(-1);
+        
+    }
     
 
     p = b - (a*a)/3;
