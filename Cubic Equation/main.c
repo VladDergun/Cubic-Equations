@@ -3,108 +3,136 @@
 #include <math.h>
 #include <complex.h>
 
+float CheckValue(char *prompt);
+
+
 int main()
 {
     float a, b, c;
-    char a_n[39];
-    char b_n[39];
-    char c_n[39];
     float y, p, q, d, u, v ;
+    while(1){
+         printf("\nCubic equation: x3 + ax2 + bx + c = 0\n");
 
-    printf("Cubic equation: x3 + ax2 + bx + c = 0\n");
-    printf("Enter a: ");
-    fgets(a_n, 38, stdin);
-    a = atof(a_n);
-   
+        a = CheckValue("Enter a: ");
+        b = CheckValue("Enter b: ");
+        c = CheckValue("Enter c: ");
 
-    printf("Enter b: ");
-    fgets(b_n, 38, stdin);
-    b = atof(b_n);
-   
-
-    printf("Enter c: ");
-    fgets(c_n, 38, stdin);
-    c = atof(c_n);
-    if (a == 0 && b == 0 && c == 0){
-        printf("x = 0");
-        getch();
-        exit(-1);
+        if (a == 0 && b == 0 && c == 0){
+            printf("x = 0");
+            exit(-1);
         
-    }
+        }
     
+        p = b - (a*a)/3;
+        q = (2*a*a*a/27) - (a*b)/3 + (c);
+        d = (p*p*p/27) + (q*q/4);
 
-    p = b - (a*a)/3;
+        if (d > 0){
+            float y1;
+            float complex y2, y3;
+            float x1;
+            float complex x2, x3;
 
-    q = (2*a*a*a/27) - (a*b)/3 + (c);
+            y = -q/2 + sqrt(d);
+            u = (y>0) ? (pow(y,1/3.)) : (pow(fabs(y), 1/3.)*(-1));
+            v = -p/(3 * u);
 
-    d = (p*p*p/27) + (q*q/4);
+            y1 = u + v;
+            y2 = (u+v)/(-2) + I*(sqrt(3)*(u-v))/2;
+            y3 = (u+v)/(-2) - I*(sqrt(3)*(u-v))/2;
+
+            x1 = y1 - a/3;
+            x2 = y2 - a/3;
+            x3 = y3 - a/3;
+
+            printf("\n x1: %f", x1);
+            printf("\n x2: %f + %fi", creal(x2), cimag(x2));
+            printf("\n x3: %f + %fi", creal(x3), cimag(x3));
+
+        }
+
+        else if(d == 0){
+            float y1, y2;
+            float x1, x2;
+
+            y1 = 3*q/p;
+            y2 = -3*q/(2*p);
+            x1 = y1 - a/3;
+            x2 = y2 - a/3;
+
+            printf("\n x1: %f", x1);
+            printf("\n x2: %f", x2);
+            printf("\n x3: %f", x2);
 
 
+        }
 
-    if (d > 0){
-        float y1;
-        float complex y2, y3;
-        float x1;
-        float complex x2, x3;
+        else if (d < 0 && (p*p*p/(-27)) >= 0 ){
+            float y1, y2, y3;
+            float x1, x2, x3;
+            float r = sqrt(p*p*p/(-27));
+            float ph = acos(-q/(2*r));
 
-        y = -q/2 + sqrt(d);
-        u = (y>0) ? (pow(y,1/3.)) : (pow(fabs(y), 1/3.)*(-1));
-        v = -p/(3*u);
+            y1 = 2*fabs(pow(r, 1/3.))* cos(ph/3);
+            y2 = 2*fabs(pow(r, 1/3.))* cos((ph+2*M_PI)/3);
+            y3 = 2*fabs(pow(r, 1/3.))* cos((ph +4*M_PI)/3);
 
-        y1 = u + v;
-        y2 = (u+v)/(-2) + I*(sqrt(3)*(u-v))/2;
-        y3 = (u+v)/(-2) - I*(sqrt(3)*(u-v))/2;
+            x1 = y1 - a/3;
+            x2 = y2 - a/3;
+            x3 = y3 - a/3;
 
-        x1 = y1 - a/3;
-        x2 = y2 - a/3;
-        x3 = y3 - a/3;
+            printf("\n x1: %f", x1);
+            printf("\n x2: %f", x2);
+            printf("\n x3: %f", x3);
+        }
 
-        printf("\n x1: %f", x1);
-        printf("\n x2: %f + %fi", creal(x2), cimag(x2));
-        printf("\n x3: %f + %fi", creal(x3), cimag(x3));
-        getch();
+        char answer = ' ';
+        int c;
+        while ((c = getchar()) != '\n' && c != EOF);
+
+        while(answer != 'N' && answer != 'Y'){
+            printf("\nWould you like to continue? Y/N: ");
+            scanf("%c", &answer);
+            while ((c = getchar()) != '\n' && c != EOF);
+        }
+        if(answer == 'Y'){
+            printf("\n");
+        }
+        else if (answer == 'N'){
+
+            break;
+        }
+
+
 
     }
-
-    else if(d == 0){
-        float y1, y2;
-        float x1, x2;
-
-        y1 = 3*q/p;
-        y2 = -3*q/(2*p);
-        x1 = y1 - a/3;
-        x2 = y2 - a/3;
-
-        printf("\n x1: %f", x1);
-        printf("\n x2: %f", x2);
-        printf("\n x3: %f", x2);
-        getch();
-
-
-    }
-
-    else if (d < 0 && (p*p*p/(-27)) >= 0 ){
-        float y1, y2, y3;
-        float x1, x2, x3;
-        float r = sqrt(p*p*p/(-27));
-        float ph = acos(-q/(2*r));
-
-        y1 = 2*fabs(pow(r, 1/3.))* cos(ph/3);
-        y2 = 2*fabs(pow(r, 1/3.))* cos((ph+2*M_PI)/3);
-        y3 = 2*fabs(pow(r, 1/3.))* cos((ph +4*M_PI)/3);
-
-        x1 = y1 - a/3;
-        x2 = y2 - a/3;
-        x3 = y3 - a/3;
-
-        printf("\n x1: %f", x1);
-        printf("\n x2: %f", x2);
-        printf("\n x3: %f", x3);
-        getch();
-    }
+    getch();
     return 0;
 
+}
 
+
+float CheckValue(char *prompt){
+    char buffer[100];
+
+    printf("%s", prompt);
+    while(1){
+        int checkI = 1;
+        scanf("%99s", buffer);
+        for(int i = 0; buffer[i]; i++){
+            if (isdigit(buffer[i]) == 0 && buffer[i] != '.' && buffer[i])
+            {
+                printf("\nYour input is invalid. Reenter: ");
+                checkI = 0;
+                break;
+            }
+
+        }
+        if(checkI == 1){
+            break;
+        }
+    }
+    return atof(buffer);
 
 
 }
