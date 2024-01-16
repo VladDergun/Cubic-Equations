@@ -3,6 +3,7 @@
 #include <math.h>
 #include <complex.h>
 
+#define M_PI 3.14159265359
 float CheckValue(char *prompt);
 
 
@@ -112,27 +113,36 @@ int main()
 }
 
 
-float CheckValue(char *prompt){
+float CheckValue(char *prompt) {
     char buffer[100];
 
     printf("%s", prompt);
-    while(1){
+    while (1) {
         int checkI = 1;
+        int dotCount = 0;
+
         scanf("%99s", buffer);
-        for(int i = 0; buffer[i]; i++){
-            if (isdigit(buffer[i]) == 0 && buffer[i] != '.' && buffer[i])
-            {
-                printf("\nYour input is invalid. Reenter: ");
-                checkI = 0;
-                break;
+
+        for (int i = 0; buffer[i]; i++) {
+            if (i == 0 && buffer[i] == '-'){
+                continue;
             }
 
+            if (isdigit(buffer[i]) == 0) {
+                if (buffer[i] == '.' && dotCount == 0) {
+                    dotCount = 1;
+                } else {
+                    printf("\nYour input is invalid. Reenter: ");
+                    checkI = 0;
+                    break;
+                }
+            }
         }
-        if(checkI == 1){
+
+        if (checkI == 1) {
             break;
         }
     }
+
     return atof(buffer);
-
-
 }
